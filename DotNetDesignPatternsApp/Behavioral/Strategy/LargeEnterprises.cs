@@ -1,0 +1,10 @@
+namespace DotNetDesignPatternsApp.Behavioral.Strategy;
+
+public class LargeEnterprises : ICommissionStrategy
+{
+    public decimal Apply(decimal amount, string currency)
+    {
+        Console.WriteLine("Applying commission for large enterprises in " + amount + " " + currency);
+        return amount * 0.15m; // 15% commission for large enterprises
+    }
+}

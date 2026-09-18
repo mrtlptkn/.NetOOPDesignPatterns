@@ -1,0 +1,126 @@
+### Tüm endpoint'ler için örnek istekler
+### VS Code (REST Client eklentisi), Visual Studio 2022 ve Rider ile doğrudan çalıştırılabilir.
+@host = http://localhost:8080
+
+########################  CREATIONAL  ########################
+
+### Abstract Factory  (themeType: LightTheme | DarkTheme)
+POST {{host}}/api/abstract-factory/test
+Content-Type: application/json
+
+{ "themeType": "DarkTheme" }
+
+### Builder (sabit örnek)
+POST {{host}}/api/builder/test
+
+### Builder (request'e göre dinamik pizza)
+POST {{host}}/api/builder/best
+Content-Type: application/json
+
+{ "size": "large", "extraCheeses": true, "extraMushrooms": false, "extraOlives": true }
+
+### Factory Method
+GET {{host}}/api/factory/test
+
+### Prototype
+POST {{host}}/api/prototype/test
+
+### Singleton - ConfigManager (Lazy<T>)
+POST {{host}}/api/singleton/test
+
+### Singleton - DatabaseConnection (double-checked locking)
+POST {{host}}/api/singleton/test2
+
+########################  STRUCTURAL  ########################
+
+### Adapter
+POST {{host}}/api/adapter/pay
+Content-Type: application/json
+
+{ "amount": 150.75, "currency": "TRY" }
+
+### Bridge - open  (remoteControlType: OneTouch | MultiTouch, deviceName: smartFridge | smartTv)
+POST {{host}}/api/bridge/open
+Content-Type: application/json
+
+{ "remoteControlType": "OneTouch", "deviceName": "smartFridge" }
+
+### Bridge - close
+POST {{host}}/api/bridge/close
+Content-Type: application/json
+
+{ "remoteControlType": "MultiTouch", "deviceName": "smartTv" }
+
+### Decorator
+POST {{host}}/api/decorator/test
+
+### Facade
+POST {{host}}/api/facade/test
+
+### Proxy (2. çağrıda cache'den okunur)
+POST {{host}}/api/proxy/docs
+Content-Type: application/json
+
+{ "bucketName": "my-bucket" }
+
+########################  BEHAVIORAL  ########################
+
+### Chain - dolandırıcılık şüphesi
+POST {{host}}/api/chain/test
+Content-Type: application/json
+
+{ "basketCode": "ABC-123", "customerNumber": "CS-100", "isFraud": true, "isStockAvailable": true, "isPaymentVerified": true }
+
+### Chain - stok yok
+POST {{host}}/api/chain/test
+Content-Type: application/json
+
+{ "basketCode": "ABC-123", "customerNumber": "CS-100", "isFraud": false, "isStockAvailable": false, "isPaymentVerified": true }
+
+### Chain - ödeme doğrulanamadı
+POST {{host}}/api/chain/test
+Content-Type: application/json
+
+{ "basketCode": "ABC-123", "customerNumber": "CS-100", "isFraud": false, "isStockAvailable": true, "isPaymentVerified": false }
+
+### Chain - başarılı
+POST {{host}}/api/chain/test
+Content-Type: application/json
+
+{ "basketCode": "ABC-123", "customerNumber": "CS-100", "isFraud": false, "isStockAvailable": true, "isPaymentVerified": true }
+
+### Command - open (remoteControlType: OneTouch | MultiTouch)
+POST {{host}}/api/command/open
+Content-Type: application/json
+
+{ "remoteControlType": "OneTouch" }
+
+### Command - close
+POST {{host}}/api/command/close
+Content-Type: application/json
+
+{ "remoteControlType": "MultiTouch" }
+
+### Observer
+POST {{host}}/api/observer/updatePrice
+Content-Type: application/json
+
+{ "name": "THY", "newPrice": 312.5 }
+
+### State - trafik ışığı Red ile başlar (Red -> Yellow -> Green)
+POST {{host}}/api/state/test
+Content-Type: application/json
+
+{ "color": "yellow" }
+
+### State - Yellow'dan Green'e
+POST {{host}}/api/state/test
+Content-Type: application/json
+
+{ "color": "green" }
+
+### Strategy (enterprise: LE | ME | SE)
+POST {{host}}/api/strategy/test
+Content-Type: application/json
+
+{ "enterprise": "LE", "amount": 1000, "currency": "TRY" }
