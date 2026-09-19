@@ -1,0 +1,2196 @@
+{
+  "info": {
+    "_postman_id": "a8c8493b-9ef8-4274-89bc-c0f8cee4797f",
+    "name": "DotNet OOP Design Patterns",
+    "description": "DotNetOOPDesignPatterns (.NET 8 / ASP.NET Core) projesindeki tüm tasarım deseni endpoint'leri.\n\n**Kullanım:** Uygulamayı `dotnet run --project DotNetDesignPatternsApp` ile başlatın (varsayılan `http://localhost:8080`). Adres farklıysa `baseUrl` değişkenini değiştirin.\n\nDesenlerin asıl çıktısı **uygulamanın konsoluna** yazılır; Postman'de yanıt gövdesi ve durum kodu test edilir. Her request'in açıklamasında beklenen konsol çıktısı yer alır.\n\n`(500)` / `(400)` işaretli request'ler bilinçli hata senaryolarıdır ve o durum kodunu bekler.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Creational",
+      "item": [
+        {
+          "name": "Abstract Factory",
+          "item": [
+            {
+              "name": "Light Theme",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Abstract Factory pattern test endpoint'\", function () { pm.expect(pm.response.text()).to.eql(\"Abstract Factory pattern test endpoint\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/abstract-factory/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "abstract-factory",
+                    "test"
+                  ]
+                },
+                "description": "themeType'a göre doğru fabrika (LightThemeFactory) seçilir; Button ve CheckBox aynı temadan üretilir.\n\nKonsol:\n`Light Button render edildi.`\n`Light CheckBox oluşturuldu.`",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"themeType\": \"LightTheme\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Dark Theme",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Abstract Factory pattern test endpoint'\", function () { pm.expect(pm.response.text()).to.eql(\"Abstract Factory pattern test endpoint\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/abstract-factory/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "abstract-factory",
+                    "test"
+                  ]
+                },
+                "description": "Konsol:\n`Dark Button rendered with dark theme.`\n`Dark CheckBox boyanıyor.`",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"themeType\": \"DarkTheme\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Bilinmeyen tema (500)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 500\", function () { pm.response.to.have.status(500); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/abstract-factory/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "abstract-factory",
+                    "test"
+                  ]
+                },
+                "description": "Geçersiz tema → `ArgumentException` → 500.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"themeType\": \"Foo\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Eksik alan (400)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 400\", function () { pm.response.to.have.status(400); });",
+                      "pm.test(\"Content-Type application/problem+json\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/problem+json\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/abstract-factory/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "abstract-factory",
+                    "test"
+                  ]
+                },
+                "description": "Zorunlu `themeType` alanı yok → `[ApiController]` doğrulaması 400 döner (Java sürümünde NPE/500 idi).",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Builder",
+          "item": [
+            {
+              "name": "Sabit örnek",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Builder pattern test endpoint'\", function () { pm.expect(pm.response.text()).to.eql(\"Builder pattern test endpoint\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/builder/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "builder",
+                    "test"
+                  ]
+                },
+                "description": "Fluent builder ile 3 farklı pizza oluşturulur (medium / large / small)."
+              },
+              "response": []
+            },
+            {
+              "name": "Dinamik pizza - hepsi ekstra",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Builder pattern test endpoint'\", function () { pm.expect(pm.response.text()).to.eql(\"Builder pattern test endpoint\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/builder/best",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "builder",
+                    "best"
+                  ]
+                },
+                "description": "PizzaApplication request'e göre builder'ı yönetir.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"size\": \"large\",\n  \"extraCheeses\": true,\n  \"extraMushrooms\": true,\n  \"extraOlives\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Dinamik pizza - sade",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Builder pattern test endpoint'\", function () { pm.expect(pm.response.text()).to.eql(\"Builder pattern test endpoint\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/builder/best",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "builder",
+                    "best"
+                  ]
+                },
+                "description": "Gönderilmeyen bool alanlar da `false` kabul edilir.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"size\": \"small\",\n  \"extraCheeses\": false,\n  \"extraMushrooms\": false,\n  \"extraOlives\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Factory Method",
+          "item": [
+            {
+              "name": "Teslimat planla",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'OK'\", function () { pm.expect(pm.response.text()).to.eql(\"OK\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/factory/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "factory",
+                    "test"
+                  ]
+                },
+                "description": "Controller'da `type = \"SeaLogistics\"` sabit; SeaLogisticsFactory → Ship.\n\nKonsol: `Denizyoluyla teslimat gerçekleştirildi (Ship)`"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Prototype",
+          "item": [
+            {
+              "name": "Clone",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: ''\", function () { pm.expect(pm.response.text()).to.eql(\"\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/prototype/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "prototype",
+                    "test"
+                  ]
+                },
+                "description": "GameCharacter clone'lanır, g2.Health = 25 yapılır; g1 etkilenmez (deep copy). Yanıt gövdesi boştur."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Singleton",
+          "item": [
+            {
+              "name": "ConfigManager (Lazy<T>)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Singleton örneği: creational-patterns v1.0.0'\", function () { pm.expect(pm.response.text()).to.eql(\"Singleton örneği: creational-patterns v1.0.0\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/singleton/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "singleton",
+                    "test"
+                  ]
+                },
+                "description": "Uygulama genelinde tek ConfigManager instance'ı."
+              },
+              "response": []
+            },
+            {
+              "name": "DatabaseConnection (double-checked locking)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Singleton örneği: jdbc://postgres:admin maxPoolSize: 10'\", function () { pm.expect(pm.response.text()).to.eql(\"Singleton örneği: jdbc://postgres:admin maxPoolSize: 10\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/singleton/test2",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "singleton",
+                    "test2"
+                  ]
+                },
+                "description": "Tek instance; ilk çağrıdaki parametreler geçerli kalır."
+              },
+              "response": []
+            }
+          ]
+        }
+      ],
+      "description": "Nesne üretimini yöneten desenler."
+    },
+    {
+      "name": "2. Structural",
+      "item": [
+        {
+          "name": "Adapter",
+          "item": [
+            {
+              "name": "Ödeme yap",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body icerir: Adapter ile odeme yapildi\", function () { pm.expect(pm.response.text()).to.include(\"Adapter ile odeme yapildi\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/adapter/pay",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "adapter",
+                    "pay"
+                  ]
+                },
+                "description": "BankPaymentApplication → BankPaymentServiceAdapter → ABankPaymentService.\n\nKonsol:\n`BankPaymentApplication: Odeme talebi alindi: 150.75 TRY`\n`ThirdPartyPaymentService ile ödeme yapıldı: 150.75 TRY`\n`ThirdPartyPaymentService: 150.75 TRY odeme islemi gerceklestiriliyor...`",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": 150.75,\n  \"currency\": \"TRY\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Bridge",
+          "item": [
+            {
+              "name": "Open - OneTouch / smartFridge",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'BRIDGE PATTERN - Opened Notification System'\", function () { pm.expect(pm.response.text()).to.eql(\"BRIDGE PATTERN - Opened Notification System\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/bridge/open",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "bridge",
+                    "open"
+                  ]
+                },
+                "description": "remoteControlType: `OneTouch` | `MultiTouch`, deviceName: `smartFridge` | `smartTv`.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"OneTouch\",\n  \"deviceName\": \"smartFridge\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Open - MultiTouch / smartTv",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'BRIDGE PATTERN - Opened Notification System'\", function () { pm.expect(pm.response.text()).to.eql(\"BRIDGE PATTERN - Opened Notification System\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/bridge/open",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "bridge",
+                    "open"
+                  ]
+                },
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"MultiTouch\",\n  \"deviceName\": \"smartTv\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Close - MultiTouch / smartTv",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'BRIDGE PATTERN - Closed Notification System'\", function () { pm.expect(pm.response.text()).to.eql(\"BRIDGE PATTERN - Closed Notification System\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/bridge/close",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "bridge",
+                    "close"
+                  ]
+                },
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"MultiTouch\",\n  \"deviceName\": \"smartTv\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Close - OneTouch / smartFridge",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'BRIDGE PATTERN - Closed Notification System'\", function () { pm.expect(pm.response.text()).to.eql(\"BRIDGE PATTERN - Closed Notification System\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/bridge/close",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "bridge",
+                    "close"
+                  ]
+                },
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"OneTouch\",\n  \"deviceName\": \"smartFridge\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Bilinmeyen cihaz (500)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 500\", function () { pm.response.to.have.status(500); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/bridge/open",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "bridge",
+                    "open"
+                  ]
+                },
+                "description": "Kayıtlı olmayan cihaz → `InvalidOperationException` → 500.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"OneTouch\",\n  \"deviceName\": \"xxx\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Decorator",
+          "item": [
+            {
+              "name": "İçecekleri süsle",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Decorator pattern test successful!'\", function () { pm.expect(pm.response.text()).to.eql(\"Decorator pattern test successful!\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/decorator/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "decorator",
+                    "test"
+                  ]
+                },
+                "description": "Konsol:\n`Sade Kahve - Cost: 200.0`\n`Sade Kahve + with Cream - Cost: 240.00`\n`Sade Kahve + with Cream + with Milk - Cost: 264.000`\n`Çay - Cost: 50.0`\n`Çay + with Milk - Cost: 55.00`"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Facade",
+          "item": [
+            {
+              "name": "Sipariş ver",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Facade pattern test endpoint'\", function () { pm.expect(pm.response.text()).to.eql(\"Facade pattern test endpoint\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/facade/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "facade",
+                    "test"
+                  ]
+                },
+                "description": "OrderFacade; stok → ödeme → kargo → bildirim alt sistemlerini tek çağrıyla koordine eder."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Proxy",
+          "item": [
+            {
+              "name": "1. çağrı (cache boş)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Proxy pattern test endpoint'\", function () { pm.expect(pm.response.text()).to.eql(\"Proxy pattern test endpoint\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/proxy/docs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "proxy",
+                    "docs"
+                  ]
+                },
+                "description": "Cache boşsa gerçek servisten alınır.\n\nKonsol: `Cache boş, gerçek servisten belgeler alınıyor...`\n\nNot: cache `static` olduğu için uygulama yeniden başlatılana kadar dolu kalır.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bucketName\": \"my-bucket\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "2. çağrı (cache'den)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Proxy pattern test endpoint'\", function () { pm.expect(pm.response.text()).to.eql(\"Proxy pattern test endpoint\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/proxy/docs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "proxy",
+                    "docs"
+                  ]
+                },
+                "description": "Konsol: `Cache'den belgeler alınıyor...`",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bucketName\": \"my-bucket\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ],
+      "description": "Sınıf/nesne yapılarını düzenleyen desenler."
+    },
+    {
+      "name": "3. Behavioral",
+      "item": [
+        {
+          "name": "Chain of Responsibility",
+          "item": [
+            {
+              "name": "Dolandırıcılık şüphesi",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: ''\", function () { pm.expect(pm.response.text()).to.eql(\"\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/chain/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "chain",
+                    "test"
+                  ]
+                },
+                "description": "Fraud → Stok → Ödeme zinciri.\n\nKonsol: `Sipariş reddedildi: Sahtecilik şüphesi`",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"basketCode\": \"ABC-123\",\n  \"customerNumber\": \"CS-100\",\n  \"isFraud\": true,\n  \"isStockAvailable\": true,\n  \"isPaymentVerified\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Stok yok",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: ''\", function () { pm.expect(pm.response.text()).to.eql(\"\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/chain/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "chain",
+                    "test"
+                  ]
+                },
+                "description": "Fraud → Stok → Ödeme zinciri.\n\nKonsol: `Sipariş reddedildi: Stokta yeterli ürün yok`",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"basketCode\": \"ABC-123\",\n  \"customerNumber\": \"CS-100\",\n  \"isFraud\": false,\n  \"isStockAvailable\": false,\n  \"isPaymentVerified\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Ödeme doğrulanamadı",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: ''\", function () { pm.expect(pm.response.text()).to.eql(\"\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/chain/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "chain",
+                    "test"
+                  ]
+                },
+                "description": "Fraud → Stok → Ödeme zinciri.\n\nKonsol: `Sipariş reddedildi: Ödeme doğrulanamadı`",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"basketCode\": \"ABC-123\",\n  \"customerNumber\": \"CS-100\",\n  \"isFraud\": false,\n  \"isStockAvailable\": true,\n  \"isPaymentVerified\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Başarılı sipariş",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: ''\", function () { pm.expect(pm.response.text()).to.eql(\"\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/chain/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "chain",
+                    "test"
+                  ]
+                },
+                "description": "Fraud → Stok → Ödeme zinciri.\n\nKonsol: `Sipariş onaylandı: Ödeme doğrulandı`",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"basketCode\": \"ABC-123\",\n  \"customerNumber\": \"CS-100\",\n  \"isFraud\": false,\n  \"isStockAvailable\": true,\n  \"isPaymentVerified\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Command",
+          "item": [
+            {
+              "name": "Open - OneTouch",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Command Design Pattern'\", function () { pm.expect(pm.response.text()).to.eql(\"Command Design Pattern\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/command/open",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "command",
+                    "open"
+                  ]
+                },
+                "description": "remoteControlType: `OneTouch` | `MultiTouch`",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"OneTouch\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Close - OneTouch",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Command Design Pattern'\", function () { pm.expect(pm.response.text()).to.eql(\"Command Design Pattern\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/command/close",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "command",
+                    "close"
+                  ]
+                },
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"OneTouch\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Open - MultiTouch",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Command Design Pattern'\", function () { pm.expect(pm.response.text()).to.eql(\"Command Design Pattern\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/command/open",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "command",
+                    "open"
+                  ]
+                },
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"MultiTouch\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Close - MultiTouch",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Command Design Pattern'\", function () { pm.expect(pm.response.text()).to.eql(\"Command Design Pattern\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/command/close",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "command",
+                    "close"
+                  ]
+                },
+                "description": "",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"MultiTouch\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Observer",
+          "item": [
+            {
+              "name": "Fiyat güncelle 312.5",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Stock price updated:'\", function () { pm.expect(pm.response.text()).to.eql(\"Stock price updated:\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/observer/updatePrice",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "observer",
+                    "updatePrice"
+                  ]
+                },
+                "description": "Abone olan Email ve SMS handler'ları tetiklenir, istek sonunda abonelikler kaldırılır.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"THY\",\n  \"newPrice\": 312.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Fiyat güncelle 320",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Stock price updated:'\", function () { pm.expect(pm.response.text()).to.eql(\"Stock price updated:\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/observer/updatePrice",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "observer",
+                    "updatePrice"
+                  ]
+                },
+                "description": "İkinci istekte bildirimler mükerrer tetiklenmez (her bildirim bir kez görünür).",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"THY\",\n  \"newPrice\": 320\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "State",
+          "item": [
+            {
+              "name": "1. Green (Red'den geçilemez)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'State Design Pattern'\", function () { pm.expect(pm.response.text()).to.eql(\"State Design Pattern\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/state/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "state",
+                    "test"
+                  ]
+                },
+                "description": "TrafficLight singleton'dır ve **Red** ile başlar; geçiş kuralları: Red→Yellow, Yellow→Red/Green, Green→Yellow. Geçersiz geçişte durum değişmez, konsola `Cannot switch from ...` yazılır (HTTP yine 200). İstekleri sırayla çalıştırın; sıfırlamak için uygulamayı yeniden başlatın.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"color\": \"green\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "2. Yellow",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'State Design Pattern'\", function () { pm.expect(pm.response.text()).to.eql(\"State Design Pattern\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/state/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "state",
+                    "test"
+                  ]
+                },
+                "description": "Red → Yellow",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"color\": \"yellow\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "3. Green",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'State Design Pattern'\", function () { pm.expect(pm.response.text()).to.eql(\"State Design Pattern\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/state/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "state",
+                    "test"
+                  ]
+                },
+                "description": "Yellow → Green",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"color\": \"green\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "4. Yellow",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'State Design Pattern'\", function () { pm.expect(pm.response.text()).to.eql(\"State Design Pattern\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/state/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "state",
+                    "test"
+                  ]
+                },
+                "description": "Green → Yellow",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"color\": \"yellow\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "5. Red",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'State Design Pattern'\", function () { pm.expect(pm.response.text()).to.eql(\"State Design Pattern\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/state/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "state",
+                    "test"
+                  ]
+                },
+                "description": "Yellow → Red",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"color\": \"red\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Geçersiz renk (500)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 500\", function () { pm.response.to.have.status(500); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/state/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "state",
+                    "test"
+                  ]
+                },
+                "description": "`ArgumentException` → 500.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"color\": \"purple\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            }
+          ],
+          "description": "TrafficLight singleton'dır ve **Red** ile başlar; geçiş kuralları: Red→Yellow, Yellow→Red/Green, Green→Yellow. Geçersiz geçişte durum değişmez, konsola `Cannot switch from ...` yazılır (HTTP yine 200). İstekleri sırayla çalıştırın; sıfırlamak için uygulamayı yeniden başlatın."
+        },
+        {
+          "name": "Strategy",
+          "item": [
+            {
+              "name": "Large Enterprise (LE) %15",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Commission for LE'\", function () { pm.expect(pm.response.text()).to.eql(\"Commission for LE\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/strategy/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "strategy",
+                    "test"
+                  ]
+                },
+                "description": "Konsol: `Final amount after commission: 150.00 TRY`",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enterprise\": \"LE\",\n  \"amount\": 1000,\n  \"currency\": \"TRY\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Medium Enterprise (ME) %7",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Commission for ME'\", function () { pm.expect(pm.response.text()).to.eql(\"Commission for ME\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/strategy/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "strategy",
+                    "test"
+                  ]
+                },
+                "description": "Konsol: `Final amount after commission: 70.00 TRY`",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enterprise\": \"ME\",\n  \"amount\": 1000,\n  \"currency\": \"TRY\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Small Enterprise (SE) %2",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                      "pm.test(\"Content-Type text/plain\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\"); });",
+                      "pm.test(\"Body: 'Commission for SE'\", function () { pm.expect(pm.response.text()).to.eql(\"Commission for SE\"); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/strategy/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "strategy",
+                    "test"
+                  ]
+                },
+                "description": "Konsol: `Final amount after commission: 20.00 TRY`",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enterprise\": \"SE\",\n  \"amount\": 1000,\n  \"currency\": \"TRY\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Bilinmeyen tip (500)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Status code 500\", function () { pm.response.to.have.status(500); });"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/strategy/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "strategy",
+                    "test"
+                  ]
+                },
+                "description": "`InvalidOperationException` → 500.",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enterprise\": \"XX\",\n  \"amount\": 1000,\n  \"currency\": \"TRY\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ],
+      "description": "Nesneler arası sorumluluk ve iletişimi yöneten desenler."
+    },
+    {
+      "name": "4. Static Files (wwwroot)",
+      "item": [
+        {
+          "name": "Abstract Factory & Factory Method diyagramı",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Content-Type image/png\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"image/png\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/day1/AbstractFactory%26FactoryMethod.png",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "day1",
+                "AbstractFactory%26FactoryMethod.png"
+              ]
+            },
+            "description": "wwwroot/day1/ altındaki diyagram görseli."
+          },
+          "response": []
+        },
+        {
+          "name": "Builder diyagramı",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Content-Type image/png\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"image/png\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/day1/BuilderDesignPattern.png",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "day1",
+                "BuilderDesignPattern.png"
+              ]
+            },
+            "description": "wwwroot/day1/ altındaki diyagram görseli."
+          },
+          "response": []
+        },
+        {
+          "name": "Chain of Responsibility diyagramı",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Content-Type image/png\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"image/png\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/day2/ChainOfResponsebility.png",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "day2",
+                "ChainOfResponsebility.png"
+              ]
+            },
+            "description": "wwwroot/day2/ altındaki diyagram görseli."
+          },
+          "response": []
+        },
+        {
+          "name": "Command diyagramı",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Content-Type image/png\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"image/png\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/day2/Command.png",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "day2",
+                "Command.png"
+              ]
+            },
+            "description": "wwwroot/day2/ altındaki diyagram görseli."
+          },
+          "response": []
+        },
+        {
+          "name": "Mediator diyagramı",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Content-Type image/png\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"image/png\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/day2/Mediator.png",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "day2",
+                "Mediator.png"
+              ]
+            },
+            "description": "wwwroot/day2/ altındaki diyagram görseli."
+          },
+          "response": []
+        },
+        {
+          "name": "Observer diyagramı",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Content-Type image/png\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"image/png\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/day2/Observer.png",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "day2",
+                "Observer.png"
+              ]
+            },
+            "description": "wwwroot/day2/ altındaki diyagram görseli."
+          },
+          "response": []
+        },
+        {
+          "name": "State diyagramı",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Content-Type image/png\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"image/png\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/day2/State.png",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "day2",
+                "State.png"
+              ]
+            },
+            "description": "wwwroot/day2/ altındaki diyagram görseli."
+          },
+          "response": []
+        },
+        {
+          "name": "Strategy diyagramı",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code 200\", function () { pm.response.to.have.status(200); });",
+                  "pm.test(\"Content-Type image/png\", function () { pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"image/png\"); });"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/day2/Strategy.png",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "day2",
+                "Strategy.png"
+              ]
+            },
+            "description": "wwwroot/day2/ altındaki diyagram görseli."
+          },
+          "response": []
+        }
+      ],
+      "description": "Spring'deki src/main/resources/static karşılığı: wwwroot."
+    }
+  ],
+  "event": [
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "pm.test(\"Yanıt süresi < 3000 ms\", function () { pm.expect(pm.response.responseTime).to.be.below(3000); });"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+}

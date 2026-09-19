@@ -1,3 +1,5 @@
+using DotNetDesignPatternsApp.Behavioral.Command.Contracts;
+
 namespace DotNetDesignPatternsApp.Behavioral.Command.Recievers;
 
 public class SmartTv : ISmartHomeDevice

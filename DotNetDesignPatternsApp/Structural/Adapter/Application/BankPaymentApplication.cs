@@ -1,4 +1,4 @@
-using DotNetDesignPatternsApp.Structural.Adapter.Infra.Core;
+using DotNetDesignPatternsApp.Structural.Adapter.Concretes;
 
 namespace DotNetDesignPatternsApp.Structural.Adapter.Application;
 

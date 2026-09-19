@@ -1,3 +1,4 @@
+using DotNetDesignPatternsApp.Structural.Decorator.Application;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetDesignPatternsApp.Structural.Decorator;

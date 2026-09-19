@@ -6,7 +6,6 @@ using DotNetDesignPatternsApp;
 Console.OutputEncoding = Encoding.UTF8;
 
 // decimal değerler makinenin diline göre "264,000" / "264.000" diye değişmesin
-// (Java tarafındaki BigDecimal çıktısıyla aynı görünsün).
 CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
 CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;

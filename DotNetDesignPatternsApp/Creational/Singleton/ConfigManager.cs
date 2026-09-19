@@ -3,8 +3,7 @@ namespace DotNetDesignPatternsApp.Creational.Singleton;
 // Uygulama içerisindeki konfigürasyonları yönettiğim bir sınıf olsun
 public sealed class ConfigManager
 {
-    // Not: Java'daki "Holder" yönteminin .NET karşılığı Lazy<T>'dir.
-    // İlk erişimde (GetInstance çağrıldığında) oluşturulur, thread-safe'tir
+    // Lazy<T> thread-safe'tir
     // (varsayılan mod: LazyThreadSafetyMode.ExecutionAndPublication).
     // Bu yöntemde instance alırken parametrik bir yapı kuramayız.
     // Uygulama genelinde tek bir instance sağlar.

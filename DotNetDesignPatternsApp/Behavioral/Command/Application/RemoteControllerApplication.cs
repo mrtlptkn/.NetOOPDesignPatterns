@@ -1,3 +1,4 @@
+using DotNetDesignPatternsApp.Behavioral.Command.Contracts;
 using DotNetDesignPatternsApp.Behavioral.Command.Invokers;
 
 namespace DotNetDesignPatternsApp.Behavioral.Command.Application;

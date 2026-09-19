@@ -1,3 +1,4 @@
+using DotNetDesignPatternsApp.Behavioral.Observer.Application;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetDesignPatternsApp.Behavioral.Observer;

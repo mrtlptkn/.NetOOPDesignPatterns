@@ -1,6 +1,7 @@
-using DotNetDesignPatternsApp.Behavioral.Command.Recievers;
+using DotNetDesignPatternsApp.Behavioral.Command.Commands;
+using DotNetDesignPatternsApp.Behavioral.Command.Contracts;
 
-namespace DotNetDesignPatternsApp.Behavioral.Command.Commands;
+namespace DotNetDesignPatternsApp.Behavioral.Command.Concretes;
 
 // Bu Komutlar Device tipinde tanımlı bir sınıf ile alakalıdır.
 public class SmartDeviceOffCommand : ISmartDeviceCommand

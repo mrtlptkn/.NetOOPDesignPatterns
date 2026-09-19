@@ -1,3 +1,5 @@
+using DotNetDesignPatternsApp.Creational.Builder.Application;
+using DotNetDesignPatternsApp.Creational.Builder.Concretes;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetDesignPatternsApp.Creational.Builder;
@@ -16,18 +18,18 @@ public class BuilderController : ControllerBase
     [HttpPost("test")]
     public ActionResult<string> Test()
     {
-        Pizza pizza1 = new PizzaBuilderImp("medium")
+        Pizza pizza1 = new PizzaBuilder("medium")
             .WithExtraCheeses()
             .WithExtraMushrooms()
             .WithExtraOlives()
             .Build();
 
-        Pizza pizza2 = new PizzaBuilderImp("large")
+        Pizza pizza2 = new PizzaBuilder("large")
             .WithExtraCheeses()
             .WithExtraMushrooms()
             .Build();
 
-        Pizza pizza3 = new PizzaBuilderImp("small")
+        Pizza pizza3 = new PizzaBuilder("small")
             .WithExtraOlives()
             .Build();
 

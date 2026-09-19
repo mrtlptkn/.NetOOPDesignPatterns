@@ -1,3 +1,4 @@
+using DotNetDesignPatternsApp.Structural.Proxy.Application;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetDesignPatternsApp.Structural.Proxy;

@@ -7,7 +7,7 @@ public class DatabaseConnection
     // Thread safe çalışmamızı sağlar.
     private static volatile DatabaseConnection? _instance;
 
-    // Kilitleyeceğimiz nesne (Java'daki DatabaseConnection.class kilidinin karşılığı)
+    // Kilitleyeceğimiz nesne
     private static readonly object SyncRoot = new();
 
     public string Url { get; }

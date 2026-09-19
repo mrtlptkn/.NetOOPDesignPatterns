@@ -1,26 +1,45 @@
-using DotNetDesignPatternsApp.Behavioral.Chain;
+using DotNetDesignPatternsApp.Behavioral.Chain.Application;
+using DotNetDesignPatternsApp.Behavioral.Chain.Concretes;
 using DotNetDesignPatternsApp.Behavioral.Command.Application;
+using DotNetDesignPatternsApp.Behavioral.Command.Contracts;
 using DotNetDesignPatternsApp.Behavioral.Command.Invokers;
-using DotNetDesignPatternsApp.Behavioral.Observer;
-using DotNetDesignPatternsApp.Behavioral.State;
-using DotNetDesignPatternsApp.Behavioral.Strategy;
-using DotNetDesignPatternsApp.Creational.Builder;
+using DotNetDesignPatternsApp.Behavioral.Mediator.Application;
+using DotNetDesignPatternsApp.Behavioral.Mediator.Concretes;
+using DotNetDesignPatternsApp.Behavioral.Mediator.Contracts;
+using DotNetDesignPatternsApp.Behavioral.Memento.Application;
+using DotNetDesignPatternsApp.Behavioral.Observer.Application;
+using DotNetDesignPatternsApp.Behavioral.Observer.Concretes;
+using DotNetDesignPatternsApp.Behavioral.State.Application;
+using DotNetDesignPatternsApp.Behavioral.State.Concretes;
+using DotNetDesignPatternsApp.Behavioral.Strategy.Application;
+using DotNetDesignPatternsApp.Behavioral.TemplateMethod.Application;
+using DotNetDesignPatternsApp.Behavioral.Visitor.Application;
+using DotNetDesignPatternsApp.Creational.Builder.Application;
 using DotNetDesignPatternsApp.Structural.Adapter.Application;
-using DotNetDesignPatternsApp.Structural.Adapter.Infra.Core;
-using DotNetDesignPatternsApp.Structural.Adapter.Infra.Vendors;
+using DotNetDesignPatternsApp.Structural.Adapter.Concretes;
+using DotNetDesignPatternsApp.Structural.Adapter.Contracts;
 using DotNetDesignPatternsApp.Structural.Bridge.Application;
 using DotNetDesignPatternsApp.Structural.Bridge.Invokers;
 using DotNetDesignPatternsApp.Structural.Bridge.Recievers;
-using DotNetDesignPatternsApp.Structural.Decorator;
-using DotNetDesignPatternsApp.Structural.Facade;
-using DotNetDesignPatternsApp.Structural.Proxy;
+using DotNetDesignPatternsApp.Structural.Composite.Application;
+using DotNetDesignPatternsApp.Structural.Decorator.Application;
+using DotNetDesignPatternsApp.Structural.Facade.Application;
+using DotNetDesignPatternsApp.Structural.Flyweight.Application;
+using DotNetDesignPatternsApp.Structural.Flyweight.Concretes;
+using DotNetDesignPatternsApp.Structural.Facade.SubSytems;
+using DotNetDesignPatternsApp.Structural.Proxy.Application;
+using DotNetDesignPatternsApp.Structural.Proxy.Concretes;
+using DotNetDesignPatternsApp.Structural.Proxy.Contracts;
 
 namespace DotNetDesignPatternsApp;
 
-// Spring Boot'ta @Component / @Service / @Scope ile otomatik yapılan bean kayıtlarının .NET karşılığı.
-// Varsayılan Spring scope'u singleton olduğu için burada da AddSingleton kullanıldı.
-// Spring'deki @Primary -> aynı interface'in birden fazla implementasyonunda "istenen" olanı,
-// .NET'te interface'i doğrudan istenen implementasyona yönlendirerek sağlıyoruz.
+// Service lifetime kararları (.NET DI):
+// - Singleton: uygulama ömrü boyunca tek örnek. Stateles servisler veya paylaşılan, thread-safe
+//   kaynaklar için uygundur. Mutable state içeren singleton'lar concurrency sorununa yol açabilir.
+// - Scoped: bir HTTP isteği süresince tek örnek. DbContext gibi per-request state tutan bileşenler için önerilir.
+// - Transient: her çözümlemede yeni örnek. Kısa ömürlü veya state tutmayan uygulama servisleri için güvenlidir.
+// Aşağıda .NET'e uygun olarak riskli/stateful servisleri transient yapıp, fabrikalar ve paylaşılan
+// cache'leri singleton bıraktık. Ayrıca kritik singleton'lar için thread-safety ve kullanım notları eklendi.
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddDesignPatternServices(this IServiceCollection services)
@@ -57,7 +76,8 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<BridgeRemoteControllerAllDeviceApplication>();
 
         // Decorator
-        services.AddSingleton<BeverageApplication>();
+        // Stateless uygulama servisi; singleton olması performans açısından uygundur.
+        services.AddSingleton<DotNetDesignPatternsApp.Structural.Decorator.Application.BeverageApplication>();
 
         // Facade
         services.AddSingleton<ProductRepository>();
@@ -72,6 +92,16 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<CachingDocumentService>();
         services.AddSingleton<IDocumentService>(sp => sp.GetRequiredService<RealDocumentService>()); // @Primary
         services.AddSingleton<DocumentsRequestApplication>();
+
+        // Flyweight
+        // TreeFactory paylaşılan intrinsic durumu önbellekler -> singleton doğru seçim.
+        services.AddSingleton<TreeFactory>();
+        // istek/çalıştırma başına izolasyon için transient yapmak daha güvenlidir.
+        services.AddTransient<ForestApplication>();
+
+        // Composite
+        // FileSystemApplication uygulama sırasında local nesneler oluşturuyor; transient tercih edildi.
+        services.AddTransient<FileSystemApplication>();
     }
 
     private static void AddBehavioral(IServiceCollection services)
@@ -97,6 +127,23 @@ public static class ServiceCollectionExtensions
         // State (TrafficLight singleton: durum istekler arasında korunur, Red ile başlar)
         services.AddSingleton<TrafficLight>();
         services.AddSingleton<TrafficLightApplication>();
+
+        // Memento
+        // TextEditorApplication simülasyon sırasında lokal undo/history tutuyor; per-execution izolasyon için transient tercih edildi.
+        services.AddTransient<TextEditorApplication>();
+
+        // Template Method
+        // Template Method uygulamaları genelde lokal akışlara sahip; transient ile istekler arası durum sızıntısı önlenir.
+        services.AddTransient<DotNetDesignPatternsApp.Behavioral.TemplateMethod.Application.BeverageApplication>();
+
+        // Visitor
+        // ShoppingCartApplication sadece hesaplama yapar ve local koleksiyon kullanır; transient daha güvenlidir.
+        services.AddTransient<ShoppingCartApplication>();
+
+        // Mediator
+        // ChatRoomMediator merkezi bir aracı (singleton) olarak kayıtlı; ChatApplication ihtiyaç duyarsa DI ile alabilir.
+        services.AddSingleton<IChatMediator, ChatRoomMediator>();
+        services.AddSingleton<ChatApplication>();
 
         // Strategy
         services.AddSingleton<CommissionApplication>();

@@ -1,6 +1,9 @@
 namespace DotNetDesignPatternsApp.Creational.Prototype;
 
-// Java'daki Cloneable karşılığı. (.NET'te ICloneable arayüzü döndürdüğü tip object olduğu ve
+
+
+
+//(.NET'te ICloneable arayüzü döndürdüğü tip object olduğu ve
 // shallow/deep belirsizliği yüzünden önerilmez; bu yüzden türü belli bir Clone() metodu yazdık.)
 public class GameCharacter
 {
