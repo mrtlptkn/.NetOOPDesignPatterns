@@ -1,9 +1,11 @@
 {
   "info": {
-    "_postman_id": "a8c8493b-9ef8-4274-89bc-c0f8cee4797f",
+    "_postman_id": "e20b9a21-e59c-4f4a-bf8b-1871253dce58",
     "name": "DotNet OOP Design Patterns",
     "description": "DotNetOOPDesignPatterns (.NET 8 / ASP.NET Core) projesindeki tüm tasarım deseni endpoint'leri.\n\n**Kullanım:** Uygulamayı `dotnet run --project DotNetDesignPatternsApp` ile başlatın (varsayılan `http://localhost:8080`). Adres farklıysa `baseUrl` değişkenini değiştirin.\n\nDesenlerin asıl çıktısı **uygulamanın konsoluna** yazılır; Postman'de yanıt gövdesi ve durum kodu test edilir. Her request'in açıklamasında beklenen konsol çıktısı yer alır.\n\n`(500)` / `(400)` işaretli request'ler bilinçli hata senaryolarıdır ve o durum kodunu bekler.",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49800903",
+    "_collection_link": "https://go.postman.co/collection/49800903-e20b9a21-e59c-4f4a-bf8b-1871253dce58?source=collection_link"
   },
   "item": [
     {
@@ -35,6 +37,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"themeType\": \"LightTheme\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/abstract-factory/test",
                   "host": [
@@ -46,16 +57,7 @@
                     "test"
                   ]
                 },
-                "description": "themeType'a göre doğru fabrika (LightThemeFactory) seçilir; Button ve CheckBox aynı temadan üretilir.\n\nKonsol:\n`Light Button render edildi.`\n`Light CheckBox oluşturuldu.`",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"themeType\": \"LightTheme\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "themeType'a göre doğru fabrika (LightThemeFactory) seçilir; Button ve CheckBox aynı temadan üretilir.\n\nKonsol:\n`Light Button render edildi.`\n`Light CheckBox oluşturuldu.`"
               },
               "response": []
             },
@@ -82,6 +84,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"themeType\": \"DarkTheme\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/abstract-factory/test",
                   "host": [
@@ -93,16 +104,7 @@
                     "test"
                   ]
                 },
-                "description": "Konsol:\n`Dark Button rendered with dark theme.`\n`Dark CheckBox boyanıyor.`",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"themeType\": \"DarkTheme\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Konsol:\n`Dark Button rendered with dark theme.`\n`Dark CheckBox boyanıyor.`"
               },
               "response": []
             },
@@ -127,6 +129,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"themeType\": \"Foo\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/abstract-factory/test",
                   "host": [
@@ -138,16 +149,7 @@
                     "test"
                   ]
                 },
-                "description": "Geçersiz tema → `ArgumentException` → 500.",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"themeType\": \"Foo\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Geçersiz tema → `ArgumentException` → 500."
               },
               "response": []
             },
@@ -173,6 +175,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/abstract-factory/test",
                   "host": [
@@ -184,16 +195,7 @@
                     "test"
                   ]
                 },
-                "description": "Zorunlu `themeType` alanı yok → `[ApiController]` doğrulaması 400 döner (Java sürümünde NPE/500 idi).",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Zorunlu `themeType` alanı yok → `[ApiController]` doğrulaması 400 döner (Java sürümünde NPE/500 idi)."
               },
               "response": []
             }
@@ -258,6 +260,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"size\": \"large\",\n  \"extraCheeses\": true,\n  \"extraMushrooms\": true,\n  \"extraOlives\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/builder/best",
                   "host": [
@@ -269,16 +280,7 @@
                     "best"
                   ]
                 },
-                "description": "PizzaApplication request'e göre builder'ı yönetir.",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"size\": \"large\",\n  \"extraCheeses\": true,\n  \"extraMushrooms\": true,\n  \"extraOlives\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "PizzaApplication request'e göre builder'ı yönetir."
               },
               "response": []
             },
@@ -305,6 +307,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"size\": \"small\",\n  \"extraCheeses\": false,\n  \"extraMushrooms\": false,\n  \"extraOlives\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/builder/best",
                   "host": [
@@ -316,16 +327,7 @@
                     "best"
                   ]
                 },
-                "description": "Gönderilmeyen bool alanlar da `false` kabul edilir.",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"size\": \"small\",\n  \"extraCheeses\": false,\n  \"extraMushrooms\": false,\n  \"extraOlives\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Gönderilmeyen bool alanlar da `false` kabul edilir."
               },
               "response": []
             }
@@ -510,6 +512,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": 150.75,\n  \"currency\": \"TRY\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/adapter/pay",
                   "host": [
@@ -521,16 +532,7 @@
                     "pay"
                   ]
                 },
-                "description": "BankPaymentApplication → BankPaymentServiceAdapter → ABankPaymentService.\n\nKonsol:\n`BankPaymentApplication: Odeme talebi alindi: 150.75 TRY`\n`ThirdPartyPaymentService ile ödeme yapıldı: 150.75 TRY`\n`ThirdPartyPaymentService: 150.75 TRY odeme islemi gerceklestiriliyor...`",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"amount\": 150.75,\n  \"currency\": \"TRY\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "BankPaymentApplication → BankPaymentServiceAdapter → ABankPaymentService.\n\nKonsol:\n`BankPaymentApplication: Odeme talebi alindi: 150.75 TRY`\n`ThirdPartyPaymentService ile ödeme yapıldı: 150.75 TRY`\n`ThirdPartyPaymentService: 150.75 TRY odeme islemi gerceklestiriliyor...`"
               },
               "response": []
             }
@@ -562,6 +564,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"OneTouch\",\n  \"deviceName\": \"smartFridge\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/bridge/open",
                   "host": [
@@ -573,16 +584,7 @@
                     "open"
                   ]
                 },
-                "description": "remoteControlType: `OneTouch` | `MultiTouch`, deviceName: `smartFridge` | `smartTv`.",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"remoteControlType\": \"OneTouch\",\n  \"deviceName\": \"smartFridge\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "remoteControlType: `OneTouch` | `MultiTouch`, deviceName: `smartFridge` | `smartTv`."
               },
               "response": []
             },
@@ -609,6 +611,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"MultiTouch\",\n  \"deviceName\": \"smartTv\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/bridge/open",
                   "host": [
@@ -619,16 +630,6 @@
                     "bridge",
                     "open"
                   ]
-                },
-                "description": "",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"remoteControlType\": \"MultiTouch\",\n  \"deviceName\": \"smartTv\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
                 }
               },
               "response": []
@@ -656,6 +657,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"MultiTouch\",\n  \"deviceName\": \"smartTv\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/bridge/close",
                   "host": [
@@ -666,16 +676,6 @@
                     "bridge",
                     "close"
                   ]
-                },
-                "description": "",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"remoteControlType\": \"MultiTouch\",\n  \"deviceName\": \"smartTv\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
                 }
               },
               "response": []
@@ -703,6 +703,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"OneTouch\",\n  \"deviceName\": \"smartFridge\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/bridge/close",
                   "host": [
@@ -713,16 +722,6 @@
                     "bridge",
                     "close"
                   ]
-                },
-                "description": "",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"remoteControlType\": \"OneTouch\",\n  \"deviceName\": \"smartFridge\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
                 }
               },
               "response": []
@@ -748,6 +747,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"OneTouch\",\n  \"deviceName\": \"xxx\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/bridge/open",
                   "host": [
@@ -759,16 +767,7 @@
                     "open"
                   ]
                 },
-                "description": "Kayıtlı olmayan cihaz → `InvalidOperationException` → 500.",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"remoteControlType\": \"OneTouch\",\n  \"deviceName\": \"xxx\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Kayıtlı olmayan cihaz → `InvalidOperationException` → 500."
               },
               "response": []
             }
@@ -876,6 +875,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bucketName\": \"my-bucket\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/proxy/docs",
                   "host": [
@@ -887,16 +895,7 @@
                     "docs"
                   ]
                 },
-                "description": "Cache boşsa gerçek servisten alınır.\n\nKonsol: `Cache boş, gerçek servisten belgeler alınıyor...`\n\nNot: cache `static` olduğu için uygulama yeniden başlatılana kadar dolu kalır.",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"bucketName\": \"my-bucket\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Cache boşsa gerçek servisten alınır.\n\nKonsol: `Cache boş, gerçek servisten belgeler alınıyor...`\n\nNot: cache `static` olduğu için uygulama yeniden başlatılana kadar dolu kalır."
               },
               "response": []
             },
@@ -923,6 +922,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bucketName\": \"my-bucket\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/proxy/docs",
                   "host": [
@@ -934,15 +942,54 @@
                     "docs"
                   ]
                 },
-                "description": "Konsol: `Cache'den belgeler alınıyor...`",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"bucketName\": \"my-bucket\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                "description": "Konsol: `Cache'den belgeler alınıyor...`"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Flyweight",
+          "item": [
+            {
+              "name": "Test",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/flyweight/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "flyweight",
+                    "test"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Composite",
+          "item": [
+            {
+              "name": "Test",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/composite/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "composite",
+                    "test"
+                  ]
                 }
               },
               "response": []
@@ -981,6 +1028,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"basketCode\": \"ABC-123\",\n  \"customerNumber\": \"CS-100\",\n  \"isFraud\": true,\n  \"isStockAvailable\": true,\n  \"isPaymentVerified\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/chain/test",
                   "host": [
@@ -992,16 +1048,7 @@
                     "test"
                   ]
                 },
-                "description": "Fraud → Stok → Ödeme zinciri.\n\nKonsol: `Sipariş reddedildi: Sahtecilik şüphesi`",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"basketCode\": \"ABC-123\",\n  \"customerNumber\": \"CS-100\",\n  \"isFraud\": true,\n  \"isStockAvailable\": true,\n  \"isPaymentVerified\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Fraud → Stok → Ödeme zinciri.\n\nKonsol: `Sipariş reddedildi: Sahtecilik şüphesi`"
               },
               "response": []
             },
@@ -1028,6 +1075,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"basketCode\": \"ABC-123\",\n  \"customerNumber\": \"CS-100\",\n  \"isFraud\": false,\n  \"isStockAvailable\": false,\n  \"isPaymentVerified\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/chain/test",
                   "host": [
@@ -1039,16 +1095,7 @@
                     "test"
                   ]
                 },
-                "description": "Fraud → Stok → Ödeme zinciri.\n\nKonsol: `Sipariş reddedildi: Stokta yeterli ürün yok`",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"basketCode\": \"ABC-123\",\n  \"customerNumber\": \"CS-100\",\n  \"isFraud\": false,\n  \"isStockAvailable\": false,\n  \"isPaymentVerified\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Fraud → Stok → Ödeme zinciri.\n\nKonsol: `Sipariş reddedildi: Stokta yeterli ürün yok`"
               },
               "response": []
             },
@@ -1075,6 +1122,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"basketCode\": \"ABC-123\",\n  \"customerNumber\": \"CS-100\",\n  \"isFraud\": false,\n  \"isStockAvailable\": true,\n  \"isPaymentVerified\": false\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/chain/test",
                   "host": [
@@ -1086,16 +1142,7 @@
                     "test"
                   ]
                 },
-                "description": "Fraud → Stok → Ödeme zinciri.\n\nKonsol: `Sipariş reddedildi: Ödeme doğrulanamadı`",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"basketCode\": \"ABC-123\",\n  \"customerNumber\": \"CS-100\",\n  \"isFraud\": false,\n  \"isStockAvailable\": true,\n  \"isPaymentVerified\": false\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Fraud → Stok → Ödeme zinciri.\n\nKonsol: `Sipariş reddedildi: Ödeme doğrulanamadı`"
               },
               "response": []
             },
@@ -1122,6 +1169,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"basketCode\": \"ABC-123\",\n  \"customerNumber\": \"CS-100\",\n  \"isFraud\": false,\n  \"isStockAvailable\": true,\n  \"isPaymentVerified\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/chain/test",
                   "host": [
@@ -1133,16 +1189,7 @@
                     "test"
                   ]
                 },
-                "description": "Fraud → Stok → Ödeme zinciri.\n\nKonsol: `Sipariş onaylandı: Ödeme doğrulandı`",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"basketCode\": \"ABC-123\",\n  \"customerNumber\": \"CS-100\",\n  \"isFraud\": false,\n  \"isStockAvailable\": true,\n  \"isPaymentVerified\": true\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Fraud → Stok → Ödeme zinciri.\n\nKonsol: `Sipariş onaylandı: Ödeme doğrulandı`"
               },
               "response": []
             }
@@ -1174,6 +1221,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"OneTouch\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/command/open",
                   "host": [
@@ -1185,16 +1241,7 @@
                     "open"
                   ]
                 },
-                "description": "remoteControlType: `OneTouch` | `MultiTouch`",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"remoteControlType\": \"OneTouch\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "remoteControlType: `OneTouch` | `MultiTouch`"
               },
               "response": []
             },
@@ -1221,6 +1268,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"OneTouch\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/command/close",
                   "host": [
@@ -1231,16 +1287,6 @@
                     "command",
                     "close"
                   ]
-                },
-                "description": "",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"remoteControlType\": \"OneTouch\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
                 }
               },
               "response": []
@@ -1268,6 +1314,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"MultiTouch\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/command/open",
                   "host": [
@@ -1278,16 +1333,6 @@
                     "command",
                     "open"
                   ]
-                },
-                "description": "",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"remoteControlType\": \"MultiTouch\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
                 }
               },
               "response": []
@@ -1315,6 +1360,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remoteControlType\": \"MultiTouch\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/command/close",
                   "host": [
@@ -1325,16 +1379,6 @@
                     "command",
                     "close"
                   ]
-                },
-                "description": "",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"remoteControlType\": \"MultiTouch\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
                 }
               },
               "response": []
@@ -1367,6 +1411,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"THY\",\n  \"newPrice\": 312.5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/observer/updatePrice",
                   "host": [
@@ -1378,16 +1431,7 @@
                     "updatePrice"
                   ]
                 },
-                "description": "Abone olan Email ve SMS handler'ları tetiklenir, istek sonunda abonelikler kaldırılır.",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"THY\",\n  \"newPrice\": 312.5\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Abone olan Email ve SMS handler'ları tetiklenir, istek sonunda abonelikler kaldırılır."
               },
               "response": []
             },
@@ -1414,6 +1458,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"THY\",\n  \"newPrice\": 320\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/observer/updatePrice",
                   "host": [
@@ -1425,16 +1478,7 @@
                     "updatePrice"
                   ]
                 },
-                "description": "İkinci istekte bildirimler mükerrer tetiklenmez (her bildirim bir kez görünür).",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"name\": \"THY\",\n  \"newPrice\": 320\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "İkinci istekte bildirimler mükerrer tetiklenmez (her bildirim bir kez görünür)."
               },
               "response": []
             }
@@ -1466,6 +1510,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"color\": \"green\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/state/test",
                   "host": [
@@ -1477,16 +1530,7 @@
                     "test"
                   ]
                 },
-                "description": "TrafficLight singleton'dır ve **Red** ile başlar; geçiş kuralları: Red→Yellow, Yellow→Red/Green, Green→Yellow. Geçersiz geçişte durum değişmez, konsola `Cannot switch from ...` yazılır (HTTP yine 200). İstekleri sırayla çalıştırın; sıfırlamak için uygulamayı yeniden başlatın.",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"color\": \"green\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "TrafficLight singleton'dır ve **Red** ile başlar; geçiş kuralları: Red→Yellow, Yellow→Red/Green, Green→Yellow. Geçersiz geçişte durum değişmez, konsola `Cannot switch from ...` yazılır (HTTP yine 200). İstekleri sırayla çalıştırın; sıfırlamak için uygulamayı yeniden başlatın."
               },
               "response": []
             },
@@ -1513,6 +1557,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"color\": \"yellow\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/state/test",
                   "host": [
@@ -1524,16 +1577,7 @@
                     "test"
                   ]
                 },
-                "description": "Red → Yellow",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"color\": \"yellow\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Red → Yellow"
               },
               "response": []
             },
@@ -1560,6 +1604,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"color\": \"green\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/state/test",
                   "host": [
@@ -1571,16 +1624,7 @@
                     "test"
                   ]
                 },
-                "description": "Yellow → Green",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"color\": \"green\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Yellow → Green"
               },
               "response": []
             },
@@ -1607,6 +1651,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"color\": \"yellow\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/state/test",
                   "host": [
@@ -1618,16 +1671,7 @@
                     "test"
                   ]
                 },
-                "description": "Green → Yellow",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"color\": \"yellow\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Green → Yellow"
               },
               "response": []
             },
@@ -1654,6 +1698,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"color\": \"red\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/state/test",
                   "host": [
@@ -1665,16 +1718,7 @@
                     "test"
                   ]
                 },
-                "description": "Yellow → Red",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"color\": \"red\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Yellow → Red"
               },
               "response": []
             },
@@ -1699,6 +1743,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"color\": \"purple\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/state/test",
                   "host": [
@@ -1710,16 +1763,7 @@
                     "test"
                   ]
                 },
-                "description": "`ArgumentException` → 500.",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"color\": \"purple\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "`ArgumentException` → 500."
               },
               "response": []
             }
@@ -1752,6 +1796,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enterprise\": \"LE\",\n  \"amount\": 1000,\n  \"currency\": \"TRY\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/strategy/test",
                   "host": [
@@ -1763,16 +1816,7 @@
                     "test"
                   ]
                 },
-                "description": "Konsol: `Final amount after commission: 150.00 TRY`",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"enterprise\": \"LE\",\n  \"amount\": 1000,\n  \"currency\": \"TRY\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Konsol: `Final amount after commission: 150.00 TRY`"
               },
               "response": []
             },
@@ -1799,6 +1843,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enterprise\": \"ME\",\n  \"amount\": 1000,\n  \"currency\": \"TRY\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/strategy/test",
                   "host": [
@@ -1810,16 +1863,7 @@
                     "test"
                   ]
                 },
-                "description": "Konsol: `Final amount after commission: 70.00 TRY`",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"enterprise\": \"ME\",\n  \"amount\": 1000,\n  \"currency\": \"TRY\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Konsol: `Final amount after commission: 70.00 TRY`"
               },
               "response": []
             },
@@ -1846,6 +1890,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enterprise\": \"SE\",\n  \"amount\": 1000,\n  \"currency\": \"TRY\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/strategy/test",
                   "host": [
@@ -1857,16 +1910,7 @@
                     "test"
                   ]
                 },
-                "description": "Konsol: `Final amount after commission: 20.00 TRY`",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"enterprise\": \"SE\",\n  \"amount\": 1000,\n  \"currency\": \"TRY\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                }
+                "description": "Konsol: `Final amount after commission: 20.00 TRY`"
               },
               "response": []
             },
@@ -1891,6 +1935,15 @@
                     "value": "application/json"
                   }
                 ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"enterprise\": \"XX\",\n  \"amount\": 1000,\n  \"currency\": \"TRY\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
                 "url": {
                   "raw": "{{baseUrl}}/api/strategy/test",
                   "host": [
@@ -1902,15 +1955,102 @@
                     "test"
                   ]
                 },
-                "description": "`InvalidOperationException` → 500.",
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"enterprise\": \"XX\",\n  \"amount\": 1000,\n  \"currency\": \"TRY\"\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
+                "description": "`InvalidOperationException` → 500."
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Visitor",
+          "item": [
+            {
+              "name": "Fiyat Hesapla",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/visitor/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "visitor",
+                    "test"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Template Method",
+          "item": [
+            {
+              "name": "İçecek Hazırla",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/template-method/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "template-method",
+                    "test"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Memento",
+          "item": [
+            {
+              "name": "Text Editor Düzenleme",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/memento/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "memento",
+                    "test"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Mediator",
+          "item": [
+            {
+              "name": "Chat Odasına Mesaj Gönder",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/mediator/test",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "mediator",
+                    "test"
+                  ]
                 }
               },
               "response": []
