@@ -107,11 +107,12 @@ public static class ServiceCollectionExtensions
     private static void AddBehavioral(IServiceCollection services)
     {
         // Chain of Responsibility
-        services.AddSingleton<FraudCheckHander>();
-        services.AddSingleton<StockCheckHandler>();
-        services.AddSingleton<PaymentCheckHandler>();
-        services.AddSingleton<OrderBadApplicationService>();
-        services.AddSingleton<OrderBestApplicationService>();
+        services.AddTransient<FraudCheckHander>();
+        services.AddTransient<StockCheckHandler>();
+        services.AddTransient<PaymentCheckHandler>();
+        services.AddScoped<OrderBestApplicationTwoStep>();
+        services.AddScoped<OrderBadApplicationService>();
+        services.AddScoped<OrderBestApplicationService>();
 
         // Command
         services.AddSingleton<IRemoteController, MultiTouchRemoteController>();

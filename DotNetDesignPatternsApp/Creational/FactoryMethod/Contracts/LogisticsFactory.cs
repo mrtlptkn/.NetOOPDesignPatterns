@@ -1,6 +1,4 @@
-using DotNetDesignPatternsApp.Creational.FactoryMethod.Contracts;
-
-namespace DotNetDesignPatternsApp.Creational.FactoryMethod.Concretes;
+namespace DotNetDesignPatternsApp.Creational.FactoryMethod.Contracts;
 
 // Logistics sınıfı Transport sınıfına direk bağlı değil. DIP prensibine de uygun hareket ettik.
 public abstract class LogisticsFactory

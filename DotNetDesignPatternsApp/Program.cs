@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Text;
 using DotNetDesignPatternsApp;
+using DotNetDesignPatternsApp.Samples;
 
 // Konsol çıktılarında Türkçe karakterler (ş, ı, ğ ...) bozulmasın.
 Console.OutputEncoding = Encoding.UTF8;
@@ -14,6 +15,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddDesignPatternServices(); // Spring'deki @Component/@Service taramasının karşılığı
+
+
+// KeyedService Sample
+builder.Services.AddKeyedScoped<IPaymentMethod, GiftCardPaymentMethod>(PaymentMethodType.GiftCardMethod);
+builder.Services.AddKeyedScoped<IPaymentMethod, CashPaymentMethod>(PaymentMethodType.CachMethod);
+builder.Services.AddScoped<PaymentApplicationService>();
+
+
 
 var app = builder.Build();
 

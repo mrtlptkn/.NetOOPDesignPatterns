@@ -9,9 +9,9 @@ public class SingletonController : ControllerBase
     [HttpPost("test")]
     public ActionResult<string> Test()
     {
-        ConfigManager configManager = ConfigManager.GetInstance();
+    ConfigManager configManager = ConfigManager.GetInstance();
 
-        return Ok("Singleton örneği: " + configManager.AppName + " v" + configManager.Version);
+    return Ok("Singleton örneği: " + configManager.AppName + " v" + configManager.Version);
     }
 
     [HttpPost("test2")]

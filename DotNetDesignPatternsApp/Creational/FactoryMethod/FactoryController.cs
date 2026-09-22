@@ -1,4 +1,6 @@
+using DotNetDesignPatternsApp.Creational.FactoryMethod.Application;
 using DotNetDesignPatternsApp.Creational.FactoryMethod.Concretes;
+using DotNetDesignPatternsApp.Creational.FactoryMethod.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetDesignPatternsApp.Creational.FactoryMethod;
@@ -8,17 +10,17 @@ namespace DotNetDesignPatternsApp.Creational.FactoryMethod;
 public class FactoryController : ControllerBase
 {
     [HttpGet("test")]
-    public ActionResult<string> Test()
+    public ActionResult<string> Test([FromBody] FactoryMethodRequest request)
     {
-        string type = "SeaLogistics";
+        ;
 
-        LogisticsFactory lf = type switch
+        LogisticsFactory lf = request.factoryType switch
         {
             "RoadLogistics" => new RoadLogisticsFactory(),
             "SeaLogistics" => new SeaLogisticsFactory(),
             "AirLogistics" => new AirlineLogisticsFactory(),
             _ => throw new ArgumentException(
-                "Bilinmeyen tip: " + type + ". Geçerli değerler: RoadLogistics, SeaLogistics, AirLogistics")
+                "Bilinmeyen tip: " + request.factoryType + ". Geçerli değerler: RoadLogistics, SeaLogistics, AirLogistics")
         };
 
         lf.PlanDelivery();
