@@ -4,10 +4,10 @@ namespace DotNetDesignPatternsApp.Structural.Proxy.Application;
 
 public class DocumentsRequestApplication
 {
-    private readonly RealDocumentService _documentService;
+    private readonly DocumentServiceProxy _documentService;
     // ekstradan proxy sınıfını da buraya ekliyoruz
 
-    public DocumentsRequestApplication(RealDocumentService documentService)
+    public DocumentsRequestApplication(DocumentServiceProxy documentService)
     {
         _documentService = documentService;
     }
@@ -19,8 +19,8 @@ public class DocumentsRequestApplication
 
         // real service proxy servisine gönderilerek ara işleme tabi tutuluyor.
         // CachingDocumentService Proxy Sınıfı
-        var cachingDocumentService = new CachingDocumentService(_documentService);
-        List<Document> docs = cachingDocumentService.GetDocuments(request.BucketName);
+        
+        List<Document> docs = _documentService.GetDocuments(request.BucketName);
 
         Console.WriteLine("Belge talebi tamamlandi: " + request.BucketName + ", Belgeler: [" + string.Join(", ", docs) + "]");
     }

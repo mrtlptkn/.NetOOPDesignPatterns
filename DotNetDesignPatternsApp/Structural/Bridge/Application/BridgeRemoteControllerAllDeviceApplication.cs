@@ -6,57 +6,57 @@ namespace DotNetDesignPatternsApp.Structural.Bridge.Application;
 public class BridgeRemoteControllerAllDeviceApplication
 {
     // Request based sıfırlanır -> Method request bazlı
-    private readonly Dictionary<string, IBridgeRemoteController> _remoteControllerMap = new();
+    private readonly Dictionary<string, IRemote> _remoteControllerMap = new();
     // request based constructor sıfırlanır
-    private readonly Dictionary<string, IBridgeSmartHomeDevice> _devices = new();
+    private readonly Dictionary<string, IDevice> _devices = new();
 
     public BridgeRemoteControllerAllDeviceApplication()
     {
         // Sistemdeki tüm device'lar sisteme tanımlanır
-        _devices["smartFridge"] = new BridgeSmartFridge();
-        _devices["smartTv"] = new BridgeSmartTv();
+        _devices["smartFridge"] = new SmartFridge();
+        _devices["smartTv"] = new SmartTv();
     }
 
-    public void Open(BridgeRemoteControlRequest request)
+    public void Open(RemoteRequest request)
     {
         if (!_devices.ContainsKey(request.DeviceName))
             throw new InvalidOperationException("Bu cihaz bulunamadi: " + request.DeviceName);
 
         // İstek atılan device, devices listesinden remote controller ile haberleşmek için bulunur
-        IBridgeSmartHomeDevice device = _devices[request.DeviceName];
+        IDevice device = _devices[request.DeviceName];
 
         // Sistemdeki tüm remote controller burada tanımlanır.
-        IBridgeRemoteController controller1 = new BridgeOneTouchRemoteController(device);
-        IBridgeRemoteController controller2 = new BridgeMultiTouchRemoteController(device);
+        IRemote controller1 = new BridgeOneTouchRemoteController(device);
+        IRemote controller2 = new BridgeMultiTouchRemoteController(device);
 
         _remoteControllerMap["OneTouch"] = controller1;
         _remoteControllerMap["MultiTouch"] = controller2;
 
         if (_remoteControllerMap.ContainsKey(request.RemoteControlType))
         {
-            IBridgeRemoteController controller = _remoteControllerMap[request.RemoteControlType];
+            IRemote controller = _remoteControllerMap[request.RemoteControlType];
             controller.Open();
         }
     }
 
-    public void Close(BridgeRemoteControlRequest request)
+    public void Close(RemoteRequest request)
     {
         if (!_devices.ContainsKey(request.DeviceName))
             throw new InvalidOperationException("Bu cihaz bulunamadi: " + request.DeviceName);
 
         // İstek atılan device, devices listesinden remote controller ile haberleşmek için bulunur
-        IBridgeSmartHomeDevice device = _devices[request.DeviceName];
+        IDevice device = _devices[request.DeviceName];
 
         // Sistemdeki tüm remote controller burada tanımlanır.
-        IBridgeRemoteController controller1 = new BridgeOneTouchRemoteController(device);
-        IBridgeRemoteController controller2 = new BridgeMultiTouchRemoteController(device);
+        IRemote controller1 = new BridgeOneTouchRemoteController(device);
+        IRemote controller2 = new BridgeMultiTouchRemoteController(device);
 
         _remoteControllerMap["OneTouch"] = controller1;
         _remoteControllerMap["MultiTouch"] = controller2;
 
         if (_remoteControllerMap.ContainsKey(request.RemoteControlType))
         {
-            IBridgeRemoteController controller = _remoteControllerMap[request.RemoteControlType];
+            IRemote controller = _remoteControllerMap[request.RemoteControlType];
             controller.Close();
         }
     }

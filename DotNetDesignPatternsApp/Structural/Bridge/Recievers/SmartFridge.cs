@@ -1,7 +1,7 @@
 namespace DotNetDesignPatternsApp.Structural.Bridge.Recievers;
 
 // Implementation
-public class BridgeSmartFridge : IBridgeSmartHomeDevice
+public class SmartFridge : IDevice
 {
     public void On()
     {

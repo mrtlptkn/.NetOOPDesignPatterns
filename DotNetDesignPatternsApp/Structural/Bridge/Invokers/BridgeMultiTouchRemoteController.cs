@@ -6,13 +6,13 @@ namespace DotNetDesignPatternsApp.Structural.Bridge.Invokers;
 // Aynı zamanda OCP'ye de uyar. Bir operasyonu abstraction üzerinden farklı sınıflara dağıtma prensibi.
 // Kodda değişim yok, gelişim çok.
 // DI kaydında IBridgeRemoteController için varsayılan (Spring'deki @Primary) implementasyon budur.
-public class BridgeMultiTouchRemoteController : IBridgeRemoteController
+public class BridgeMultiTouchRemoteController : IRemote
 {
     // Bridge
     // Herhangi bir remoteController'ün herhangi bir smart device ile köprü kurmasını abstraction üzerinden yapar.
-    private readonly IBridgeSmartHomeDevice _smartHomeDevice;
+    private readonly IDevice _smartHomeDevice;
 
-    public BridgeMultiTouchRemoteController(IBridgeSmartHomeDevice smartDevice)
+    public BridgeMultiTouchRemoteController(IDevice smartDevice)
     {
         _smartHomeDevice = smartDevice;
     }

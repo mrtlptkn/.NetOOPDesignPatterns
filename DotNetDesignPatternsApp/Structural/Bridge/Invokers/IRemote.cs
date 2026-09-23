@@ -1,7 +1,7 @@
 namespace DotNetDesignPatternsApp.Structural.Bridge.Invokers;
 
 // Kumanda
-public interface IBridgeRemoteController
+public interface IRemote
 {
     void Open();
     void Close();

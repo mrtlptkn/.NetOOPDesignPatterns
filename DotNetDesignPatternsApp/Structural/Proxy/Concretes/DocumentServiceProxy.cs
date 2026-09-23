@@ -3,7 +3,7 @@ using DotNetDesignPatternsApp.Structural.Proxy.Contracts;
 namespace DotNetDesignPatternsApp.Structural.Proxy.Concretes;
 
 // Proxy Service
-public class CachingDocumentService : IDocumentService
+public class DocumentServiceProxy : IDocumentService
 {
     // Kodda herhangi bir imza değişimi yapmadan, sadece ilgili sınıfı CachingDocumentService proxy servisi ile
     // sarmalayarak ekstra bir kontrol özelliği kazandırmış olduk: Caching
@@ -14,7 +14,7 @@ public class CachingDocumentService : IDocumentService
     // Thread safe singleton pattern ile yapmak lazım.
     private static readonly List<Document> Documents = new();
 
-    public CachingDocumentService(RealDocumentService realDocumentService)
+    public DocumentServiceProxy(RealDocumentService realDocumentService)
     {
         _realDocumentService = realDocumentService;
     }

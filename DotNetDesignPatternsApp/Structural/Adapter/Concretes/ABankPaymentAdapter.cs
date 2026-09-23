@@ -12,12 +12,12 @@ namespace DotNetDesignPatternsApp.Structural.Adapter.Concretes;
 // Uygulamalar arası yazılmış bir package (NuGet paketi) da olabilir. Örn: DomainName.Payment.Core
 // Not: vendors tanımları DomainName.Payment.Core içinde yazılacak, uygulamadan bağımsız güncellenecek ki,
 // birden fazla aynı altyapıyı tüketen uygulama bu paketten yararlansın.
-public class BankPaymentServiceAdapter : IPaymentProcessor
+public class ABankPaymentAdapter : IPaymentAdapter
 {
     // Wrap'leyeceğimiz servis ne ?
     private readonly ABankPaymentService _thirdPartyPaymentService;
 
-    public BankPaymentServiceAdapter(ABankPaymentService thirdPartyPaymentService)
+    public ABankPaymentAdapter(ABankPaymentService thirdPartyPaymentService)
     {
         _thirdPartyPaymentService = thirdPartyPaymentService;
     }

@@ -61,18 +61,21 @@ public static class ServiceCollectionExtensions
         // Adapter
         services.AddSingleton<ABankPaymentService>();
         services.AddSingleton<BBankPaymentService>();
-        services.AddSingleton<BankPaymentServiceAdapter>();
-        services.AddSingleton<IPaymentProcessor>(sp => sp.GetRequiredService<BankPaymentServiceAdapter>());
+        services.AddSingleton<ABankPaymentAdapter>();
+        services.AddKeyedSingleton<IPaymentAdapter, ABankPaymentAdapter>("ABank");
+    services.AddKeyedSingleton<IPaymentAdapter, BBankPaymentAdapter>("BBank");
+
+
+
         services.AddSingleton<BankPaymentApplication>();
 
         // Bridge
-        services.AddSingleton<BridgeSmartFridge>();
-        services.AddSingleton<BridgeSmartTv>();
-        services.AddSingleton<IBridgeSmartHomeDevice>(sp => sp.GetRequiredService<BridgeSmartTv>()); // @Primary
+        services.AddSingleton<SmartFridge>();
+        services.AddSingleton<SmartTv>();
+        services.AddSingleton<IDevice>(sp => sp.GetRequiredService<SmartTv>()); // @Primary
         services.AddSingleton<BridgeOneTouchRemoteController>();
         services.AddSingleton<BridgeMultiTouchRemoteController>();
-        services.AddSingleton<IBridgeRemoteController>(sp => sp.GetRequiredService<BridgeMultiTouchRemoteController>()); // @Primary
-        services.AddSingleton<BridgeRemoteControllerApplication>();
+        services.AddSingleton<IRemote>(sp => sp.GetRequiredService<BridgeMultiTouchRemoteController>()); // 
         services.AddSingleton<BridgeRemoteControllerAllDeviceApplication>();
 
         // Decorator
@@ -89,7 +92,7 @@ public static class ServiceCollectionExtensions
 
         // Proxy
         services.AddSingleton<RealDocumentService>();
-        services.AddSingleton<CachingDocumentService>();
+        services.AddSingleton<DocumentServiceProxy>();
         services.AddSingleton<IDocumentService>(sp => sp.GetRequiredService<RealDocumentService>()); // @Primary
         services.AddSingleton<DocumentsRequestApplication>();
 

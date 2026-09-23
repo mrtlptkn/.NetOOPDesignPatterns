@@ -2,11 +2,13 @@ using DotNetDesignPatternsApp.Structural.Bridge.Recievers;
 
 namespace DotNetDesignPatternsApp.Structural.Bridge.Invokers;
 
-public class BridgeOneTouchRemoteController : IBridgeRemoteController
+public class BridgeOneTouchRemoteController : IRemote
 {
-    private readonly IBridgeSmartHomeDevice _device;
+  // DIP
+    private readonly IDevice _device;
 
-    public BridgeOneTouchRemoteController(IBridgeSmartHomeDevice smartHomeDevice)
+  // DI
+    public BridgeOneTouchRemoteController(IDevice smartHomeDevice)
     {
         _device = smartHomeDevice;
     }

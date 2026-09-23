@@ -4,7 +4,7 @@ namespace DotNetDesignPatternsApp.Behavioral.Visitor.Concretes;
 
 public class Electronic : IShoppingItem
 {
-    public string Name { get; }
+    public string Name { get; set; }
     public decimal Price { get; }
     public int WarrantyYears { get; }
 

@@ -1,4 +1,5 @@
 using DotNetDesignPatternsApp.Structural.Adapter.Concretes;
+using DotNetDesignPatternsApp.Structural.Adapter.Contracts;
 
 namespace DotNetDesignPatternsApp.Structural.Adapter.Application;
 
@@ -8,9 +9,9 @@ public class BankPaymentApplication
     // private ABankPaymentService _aBankPaymentService = new ABankPaymentService();
 
     // Doğrusu tüm servisler haberleşirken adapter üzerinden haberleşecek.
-    private readonly BankPaymentServiceAdapter _adapter;
+    private readonly IPaymentAdapter _adapter;
 
-    public BankPaymentApplication(BankPaymentServiceAdapter adapter)
+    public BankPaymentApplication([FromKeyedServices("BBank")] IPaymentAdapter adapter)
     {
         _adapter = adapter;
     }

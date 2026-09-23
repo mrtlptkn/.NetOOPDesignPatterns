@@ -1,5 +1,8 @@
 ﻿namespace DotNetDesignPatternsApp.Samples
 {
+
+
+  // Strategy Pattern Net Core üzerinden implementasyonu.
   public class PaymentApplicationService
   {
 

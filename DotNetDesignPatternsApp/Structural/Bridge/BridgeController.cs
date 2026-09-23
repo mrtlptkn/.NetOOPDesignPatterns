@@ -15,7 +15,7 @@ public class BridgeController : ControllerBase
     }
 
     [HttpPost("open")]
-    public ActionResult<string> Open([FromBody] BridgeRemoteControlRequest request)
+    public ActionResult<string> Open([FromBody] RemoteRequest request)
     {
         _bridgeRemoteControllerApplication.Open(request);
 
@@ -23,7 +23,7 @@ public class BridgeController : ControllerBase
     }
 
     [HttpPost("close")]
-    public ActionResult<string> Close([FromBody] BridgeRemoteControlRequest request)
+    public ActionResult<string> Close([FromBody] RemoteRequest request)
     {
         _bridgeRemoteControllerApplication.Close(request);
 
